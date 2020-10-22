@@ -16,15 +16,12 @@ def main():
     try:
         with edgeiq.WebcamVideoStream(cam=0) as webcam, \
                 edgeiq.Streamer() as streamer:
-            # Allow webcam to warm up
             time.sleep(2.0)
             fps.start()
 
-            # loop detection
             while True:
                 frame = webcam.read()
                 
-                # detect human faces
                 results = facial_detector.detect_objects(
                         frame, confidence_level=.5)
                 frame = edgeiq.markup_image(
