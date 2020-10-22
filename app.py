@@ -29,11 +29,13 @@ def main():
                 frame = edgeiq.markup_image(
                         frame, results.predictions, colors=facial_detector.colors)
 
+
                 for prediction in results.predictions:
                     text.append("{}: {:2.2f}%".format(
                         prediction.label + " " + str(face), prediction.confidence * 100))
                     text.append("Position: " + str(face) + " {}" .format(prediction.box.center))
                     face += 1
+
                 face = 0
 
                 if len(results.predictions) > 0:
