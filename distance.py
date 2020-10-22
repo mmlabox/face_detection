@@ -1,14 +1,13 @@
 import cv2 as cv
 import edgeiq
-import numpy as np
-import math
 
 def get_distances(frame, predictions, text):
     for i in range(len(predictions)):
        for j in range(i+1, len(predictions)):
-                color = (66,245,93)
                 dist = predictions[i].box.compute_distance(predictions[j].box)
 
+                # Draw some unnecessary lines between faces
+                color = (66,245,93)
                 cv.line(frame, (int(predictions[i].box.center[0]), int(predictions[i].box.center[1])), 
                 (int(predictions[j].box.center[0]), int(predictions[j].box.center[1])), color, 6)
 

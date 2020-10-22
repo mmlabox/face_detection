@@ -21,21 +21,19 @@ def main():
 
             while True:
                 frame = webcam.read()
+                text = [""]
+                face = 1
                 
                 results = facial_detector.detect_objects(
                         frame, confidence_level=.5)
                 frame = edgeiq.markup_image(
                         frame, results.predictions, colors=facial_detector.colors)
 
-                text = [""]
-
-                face = 1
                 for prediction in results.predictions:
                     text.append("{}: {:2.2f}%".format(
                         prediction.label + " " + str(face), prediction.confidence * 100))
                     text.append("Position: " + str(face) + " {}" .format(prediction.box.center))
                     face += 1
-                
                 face = 0
 
                 if len(results.predictions) > 0:
