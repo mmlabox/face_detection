@@ -22,7 +22,7 @@ def main():
             while True:
                 frame = webcam.read()
                 text = [""]
-                face = 1
+                face = 0
                 
                 results = facial_detector.detect_objects(
                         frame, confidence_level=.5)
@@ -31,12 +31,13 @@ def main():
 
 
                 for prediction in results.predictions:
+                    face += 1
                     text.append("{}: {:2.2f}%".format(
                         prediction.label + " " + str(face), prediction.confidence * 100))
-                    text.append("Position: " + str(face) + " {}" .format(prediction.box.center))
-                    face += 1
-
-                face = 0
+                    # text.append("Position: " + str(face) + " {}" .format(prediction.box.center))
+                    # text.append(("Face width {:.2f}".format(prediction.box.width)))
+                    
+                text.append("Number of faces detected: " + str(face))
 
                 if len(results.predictions) > 0:
                     (frame, text) = get_distances(frame, results.predictions, text)
