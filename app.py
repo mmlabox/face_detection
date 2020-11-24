@@ -11,6 +11,10 @@ def main():
     print("Accelerator: {}\n".format(facial_detector.accelerator))
     print("Model:\n{}\n".format(facial_detector.model_id))
 
+    # Uses streamer to stream video and output to be viewed in browser (localhost:5000)
+    # Temporary for developing/testing purposes, can be removed once connected to timeflux/influx etc (output = dataframe)
+    
+
     fps = edgeiq.FPS()
 
     try:
@@ -34,12 +38,10 @@ def main():
                     face += 1
                     text.append("{}: {:2.2f}%".format(
                         prediction.label + " " + str(face), prediction.confidence * 100))
-                    # text.append("Position: " + str(face) + " {}" .format(prediction.box.center))
-                    # text.append(("Face width {:.2f}".format(prediction.box.width)))
                     
                 text.append("Number of faces detected: " + str(face))
 
-                if len(results.predictions) > 0:
+                if len(results.predictions) > 1:
                     (frame, text) = get_distances(frame, results.predictions, text)
 
                 streamer.send_data(frame, text)
