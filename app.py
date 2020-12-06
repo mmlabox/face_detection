@@ -1,5 +1,6 @@
 import time
 import edgeiq
+import pandas as pd
 from distance import *
 
 def main():
@@ -13,7 +14,6 @@ def main():
 
     # Uses streamer to stream video and output to be viewed in browser (localhost:5000)
     # Temporary for developing/testing purposes, can be removed once connected to timeflux/influx etc (output = dataframe)
-    
 
     fps = edgeiq.FPS()
 
@@ -27,6 +27,7 @@ def main():
                 frame = webcam.read()
                 text = [""]
                 face = 0
+                d = []
                 
                 results = facial_detector.detect_objects(
                         frame, confidence_level=.5)
@@ -42,10 +43,11 @@ def main():
                 text.append("Number of faces detected: " + str(face))
 
                 if len(results.predictions) > 1:
-                    (frame, text) = get_distances(frame, results.predictions, text)
+                    (frame, text, d) = get_distances(frame, results.predictions, text)
+                    df = pd.DataFrame(data=d)
+                    print(df) # TODO: Push dataframe to Timeflux :) To avoid pushing empty dataframes, make sure it's done inside this if-statement
 
                 streamer.send_data(frame, text)
-
                 fps.update()
 
                 if streamer.check_exit():
