@@ -26,5 +26,4 @@ def get_distances(frame, predictions, text):
             text.append("Distance in cm between face " + str(i+1) + " and " + str(j+1) + ": {:.2f} cm".format(dist))
     
     d = {'Face': faces, 'Other Face': other_faces, 'Dist': distances}
-    # df = pd.DataFrame(data=d)
     return (frame, text, d)
