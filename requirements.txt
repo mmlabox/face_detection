@@ -3,3 +3,5 @@
 # RPi.GPIO
 # pygame
 pandas
+influxdb
+django-environ
