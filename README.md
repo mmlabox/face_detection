@@ -27,5 +27,5 @@ Repeat this step every time you've made changes to the code.
 ```
 aai app start
 ```
-Output will be printed to the terminal and written to influxDB (make sure to provide a .env file with the necessary information). A live video-stream is also available by navigating to localhost:5000 in your browser.
+Output will be printed to the terminal and written to influxDB (given that you've provided a .env file with the necessary credentials). A live video-stream is also available by navigating to localhost:5000 in your browser.
 
